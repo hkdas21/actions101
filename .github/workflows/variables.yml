@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Docker build
-      run: docker build docker.io/beheman77/mynginx-heman:v1
+      run: echo docker build docker.io/beheman77/mynginx-heman:v1
   
     - name: Docker login
       run: docker login --username=beheman77 --password=securepassword123
