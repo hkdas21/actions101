@@ -21,9 +21,14 @@ jobs:
 
     deploy:
         strategy:
+            fail-fast: false
+            max-parallel: 2
             matrix:
                 OS: [ubuntu-latest, windows-latest]
                 images: [hello-world, alpine]
+                exclude:
+                    - images: alpine
+                      os: windows-latest
         runs-on: ${{ matrix.OS}}
         steps:
         - name: Echo docker
