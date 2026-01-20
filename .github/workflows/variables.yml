@@ -1,6 +1,6 @@
 name: Exploring Variables and Secrets
 
-on: push
+on: workflow_dispatch
 
 env: 
   CONTAINER_REGISTRY: docker.io
@@ -82,3 +82,21 @@ jobs:
     steps:
     - name: Docker run 
       run: echo docker build -t ${{ env.CONTAINER_REGISTRY }}/$DOCKER_USERNAME/$IMAGE_NAME:latest
+
+
+## Concurrency ##
+  docker4:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker build
+      run: echo docker build docker.io/beheman77/mynginx-heman:v1
+  
+    - name: Docker login
+      run: echo docker login --username=beheman77 --password=securepassword123
+
+  deploy4:
+    needs: docker1
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker run
+      run: docker run -d -p 8080:80 docker.io/beheman77/mynginx-heman:v1
